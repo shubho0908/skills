@@ -35,6 +35,25 @@ Ship-beat notes:
 - The default upload host (0x0.st) is public — fine for ordinary UI shots;
   pass `--upload-url` for anything sensitive.
 
+## Evidence in PRs, never in the repo
+
+Before/after screenshots, screen recordings, and any other visual proof
+**belong in the PR description** (uploaded and embedded as image URLs /
+markdown), **never as files in the repo**. The repo keeps code, not media.
+
+- **Do not** commit `.png`, `.jpg`, `.jpeg`, `.gif`, `.webm`, `.mp4`,
+  `.mov`, `.webp` files as part of a feature/fix PR — even when they
+  illustrate the change. Upload them via the `before-and-after` markdown
+  flow or another host, then attach the resulting links to the PR body.
+- Keep raw captures under a gitignored folder (`.artifacts/`, `evidence/`,
+  `screenshots/`, etc.) so they stay local for reuse but never reach git.
+- When a screenshot absolutely must live next to source (e.g. a docs page
+  that renders an image at build time, a fixture that the test suite reads),
+  justify it in the PR description and confirm it is tracked in the repo's
+  long-lived asset policy — this is the exception, not the rule.
+- The same applies to evidence-driven recordings (`evidence.mp4`,
+  `report.md`, `manifest.json`): they are PR attachments, not commits.
+
 ## Multi-agent rules
 
 - Never commit directly to `main`.

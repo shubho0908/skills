@@ -195,6 +195,26 @@ Python 3 and FFmpeg.
 - When verifying a fix, show or reference the old failure alongside the new success.
 - Always state the exact commit/branch/deployment tested against.
 
+## Evidence is a PR attachment, not a commit
+
+`evidence.mp4`, `report.md`, `manifest.json`, screenshots, before/after
+pairs — anything this skill produces — is **PR description content**, never
+repo content.
+
+- **Do not** `git add` `.mp4`, `.mov`, `.webm`, `.png`, `.jpg`, `.webp`,
+  `report.md`, or `manifest.json` files. The PR description gets the video
+  embed + summary; the commit gets the code change.
+- Keep captures in `.artifacts/<task-name>/` (already gitignored) so they
+  remain available to feed `before-and-after before.png after.png --markdown`
+  or to re-upload to a PR comment, without ever reaching git.
+- `gh pr comment` cannot attach a local video — upload `evidence.mp4`
+  through the PR's comment box in an authenticated browser, or upload to a
+  host and link it. The link / embed goes in the PR description; the file
+  itself does not.
+- Add `.artifacts/`, `evidence/`, `screenshots/`, `before-after/` to the
+  target repo's `.gitignore` (the skills repo's own `.gitignore` already
+  covers `.artifacts/`).
+
 ## No computer-use tools? Drive with cua-driver (GUI available)
 
 When a display exists but the agent has no built-in computer-use capability,

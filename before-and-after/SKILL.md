@@ -26,12 +26,37 @@ allowed-tools:
 **DO NOT:**
 - Switch git branches, stash changes, start dev servers, or assume what "before" is
 - Use `--full` unless user explicitly asks for full page / full scroll capture
+- **Commit or push the before/after PNG (or any other media) files to the repo.**
+  The PNGs are PR attachments, not source. See "Never commit the images" below.
 
 **DO:**
 - Use `--markdown` when user wants PR integration or markdown output
 - Use `--mobile` / `--tablet` if user mentions phone, mobile, tablet, responsive, etc.
 - Assume current state is **After**
 - If user provides only one URL or says "PR screenshots" without URLs, **ASK**: "What URL should I use for the 'before' state? (production URL, preview deployment, or another local port)"
+
+## Never commit the images
+
+Before/after screenshots are **PR description content**, never repo content.
+The repo keeps code; the PR keeps the proof.
+
+- Capture locally (default: `~/Downloads/`), then upload via
+  `./scripts/upload-and-copy.sh before.png after.png --markdown` — that
+  produces hosted URLs and a markdown table ready to paste into the PR
+  body.
+- **Never** `git add` the `.png` (or `.jpg`/`.webp`/`.mp4`/`.webm`) files.
+  The PR description gets the markdown; the commit gets the code change.
+- Keep raw captures under a gitignored folder (`.artifacts/`,
+  `evidence/`, `screenshots/`) so they can be reused as input to a later
+  run without ever reaching git.
+- `.gitignore` should include at least: `.artifacts/`, `evidence/`,
+  `screenshots/`, `before-after/`. The `before-and-after` CLI's default
+  output dir (`~/Downloads/`) is already outside the repo, so commits
+  inside the repo aren't a risk from there — but explicit gitignore lines
+  protect against the agent dropping captures into the project by mistake.
+- Exceptions (e.g. an image baked into a docs page, a fixture read by
+  tests) must be justified in the PR body — visual proof of a UI change
+  is not an exception.
 
 ## Execution Order (MUST follow)
 
