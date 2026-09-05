@@ -13,17 +13,17 @@ callouts; it also governs work in this repo itself.
 2. **Build — `/code-structure` under `/ponytail` (full).** Write code to
    the service-layer architecture: actions/boundaries orchestrate the
    "why/when", a service layer owns the reusable "how", with explicit
-   inputs and structured returns. Climb the ponytail ladder first — YAGNI,
+   inputs and structured returns. Climb the ponytail ladder first: YAGNI,
    reuse existing code, stdlib/native before new code or dependencies,
    shortest diff that fixes the root cause. Precedence where they pull
    apart: ponytail governs *scope* (don't create unneeded code);
    code-structure governs *placement* once repetition across 2+ callers is
-   real (extract to the service layer — don't duplicate, but don't
+   real (extract to the service layer. Do not duplicate, but do not
    over-abstract for a single caller either). The bar is top-notch,
    greploop-clean code: anything below that gets reworked in the Ship
    beat until Greptile reports 5/5.
    Ponytail's terse-output rule applies to code, not to required
-   artifacts — PR bodies, evidence reports, and checklists stay complete
+   artifacts. PR bodies, evidence reports, and checklists stay complete
    (Prove and Ship beats win over brevity).
 3. **Prove — `/evidence-driven-testing`.** Verify with the repo's checks
    plus runtime evidence. Capture the **before** state while reproducing the
@@ -45,6 +45,18 @@ Ship-beat notes:
   `AGENT_BROWSER_ARGS="--no-sandbox"` for the capture command.
 - The default upload host (0x0.st) is public — fine for ordinary UI shots;
   pass `--upload-url` for anything sensitive.
+
+## Writing for humans
+
+Run `/unslop` over anything a person will read, before you commit, post, or
+send it: commit messages, the PR title and body, README and doc edits, code
+comments, and the closing reply. It strips AI tells (em dashes, filler,
+hedging, chatbot phrases, puffery, bold-label lists) and replaces fancy
+words with plain ones and passive voice with active. Apply it to text you
+wrote or changed, not to prose you didn't touch.
+In this workflow the split is explicit: `/ponytail` governs code scope,
+`/unslop` governs prose. (Ponytail's body names Caveman for terse prose.
+Caveman is not installed here, so prose means `/unslop`.)
 
 ## Evidence in PRs, never in the repo
 
@@ -85,10 +97,10 @@ markdown), **never as files in the repo**. The repo keeps code, not media.
 ## Completing a task
 
 1. Keep changes limited to the assigned task.
-2. Self-review against the top-notch bar (no duplication across flows,
-   explicit params, structured returns, no god/leaky services; ponytail
-   ladder — nothing unneeded, reuse/stdlib-native first, shortest
-   root-cause diff), then run the repo's checks
+2. Self-review against the top-notch bar: no duplication across flows,
+   explicit params, structured returns, no god/leaky services, and nothing
+   the ponytail ladder would cut (reuse/stdlib-native first, shortest
+   root-cause diff). Then run the repo's checks
    *(repo-specific: list the exact commands here)*.
 3. Assemble the evidence captured along the way into before/after pairs.
 4. Commit with a clear message, rebase onto the latest `origin/main`, and
@@ -97,7 +109,7 @@ markdown), **never as files in the repo**. The repo keeps code, not media.
    branch, `--force-with-lease`).
 6. Open the PR. The body must explain what changed, how it was tested (every
    claim backed by evidence), before/after proof, and any risks or follow-up
-   work.
+   work. Run the title and body through `/unslop` before posting.
 7. Run `/greploop` (or `/greploop-apps`) until **5/5 with zero unresolved
    comments**.
 8. End by presenting the PR URL.
@@ -120,4 +132,5 @@ infrastructure (stubs, fixtures), and anything that can't be tested locally.
 | `before-and-after` | this repo, vendored from [vercel-labs/before-and-after](https://github.com/vercel-labs/before-and-after) (or `npx skills add vercel-labs/before-and-after`) |
 | `greploop` | this repo, vendored from [greptileai/skills](https://github.com/greptileai/skills) |
 | `greploop-apps` | this repo (local variant of greploop for huge PRs; no separate upstream) |
-| `ponytail` | this repo, vendored from [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) (MIT — license included in the folder) |
+| `ponytail` | this repo, vendored from [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) (MIT, license included in the folder) |
+| `unslop` | this repo, vendored from [cursor/plugins (pstack)](https://github.com/cursor/plugins/tree/main/pstack/skills/unslop); frontmatter edited so agents apply it unprompted (`disable-model-invocation` dropped, description scoped to text the agent writes or edits for people), body untouched |
