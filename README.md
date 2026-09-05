@@ -65,9 +65,17 @@ Use it when:
 
 Includes harness deltas for Claude Code and Cursor, which manage worktrees themselves.
 
+### [ponytail](ponytail/SKILL.md)
+
+Anti-overengineering discipline: the smallest implementation that satisfies the complete requirement — YAGNI, reuse existing code, stdlib and native platform features before new code or dependencies, root-cause fixes, one runnable check for non-trivial logic. Never at the expense of validation, error handling, security, accessibility, or explicitly requested scope.
+
+Use it on every coding task (writing, refactoring, fixing, reviewing, choosing dependencies), paired with `code-structure`: ponytail governs scope, code-structure governs placement.
+
+> Vendored from [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) (MIT — license included in the folder). Core skill only — upstream's review/audit/debt/gain companions are intentionally excluded (those beats already belong to `greploop` and `evidence-driven-testing`).
+
 ## Workflow
 
-[`AGENTS.md`](AGENTS.md) ties the skills together into a four-beat workflow — isolate (`new-feature`) → build (`code-structure`) → prove (`evidence-driven-testing`) → ship (`before-and-after` + `greploop`). Drop it into a repo alongside the skills and fill in the repo-specific callouts (checks, invariants, environment).
+[`AGENTS.md`](AGENTS.md) ties the skills together into a four-beat workflow — isolate (`new-feature`) → build (`code-structure` under `/ponytail`) → prove (`evidence-driven-testing`) → ship (`before-and-after` + `greploop`). The quality bar throughout is top-notch, greploop-clean code (5/5 with zero unresolved comments): the build beat keeps scope minimal and placement clean, the ship beat enforces it via `/greploop`. Drop it into a repo alongside the skills and fill in the repo-specific callouts (checks, invariants, environment).
 
 ## Installation
 
@@ -81,7 +89,7 @@ cp -r code-structure ~/.claude/skills/
 cp -r code-structure /path/to/project/.claude/skills/
 ```
 
-Claude Code picks up the skill automatically and invokes it when a task matches the skill's description. You can also invoke one explicitly with `/code-structure` or `/evidence-driven-testing`.
+Claude Code picks up the skill automatically and invokes it when a task matches the skill's description. You can also invoke one explicitly with `/ponytail`, `/code-structure`, or `/evidence-driven-testing`.
 
 ## Adding a New Skill
 

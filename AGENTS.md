@@ -10,10 +10,21 @@ callouts; it also governs work in this repo itself.
 1. **Isolate — `/new-feature`.** Every new feature starts in a fresh Git
    worktree branched from `origin/main` so agents can work in parallel
    without conflicts. Never build on `main`.
-2. **Build — `/code-structure`.** Write code to the service-layer
-   architecture: actions/boundaries orchestrate the "why/when", a service
-   layer owns the reusable "how", with explicit inputs and structured
-   returns.
+2. **Build — `/code-structure` under `/ponytail` (full).** Write code to
+   the service-layer architecture: actions/boundaries orchestrate the
+   "why/when", a service layer owns the reusable "how", with explicit
+   inputs and structured returns. Climb the ponytail ladder first — YAGNI,
+   reuse existing code, stdlib/native before new code or dependencies,
+   shortest diff that fixes the root cause. Precedence where they pull
+   apart: ponytail governs *scope* (don't create unneeded code);
+   code-structure governs *placement* once repetition across 2+ callers is
+   real (extract to the service layer — don't duplicate, but don't
+   over-abstract for a single caller either). The bar is top-notch,
+   greploop-clean code: anything below that gets reworked in the Ship
+   beat until Greptile reports 5/5.
+   Ponytail's terse-output rule applies to code, not to required
+   artifacts — PR bodies, evidence reports, and checklists stay complete
+   (Prove and Ship beats win over brevity).
 3. **Prove — `/evidence-driven-testing`.** Verify with the repo's checks
    plus runtime evidence. Capture the **before** state while reproducing the
    issue — prior to fixing it, when it is cheapest — and the **after** once
@@ -74,7 +85,11 @@ markdown), **never as files in the repo**. The repo keeps code, not media.
 ## Completing a task
 
 1. Keep changes limited to the assigned task.
-2. Run the repo's checks *(repo-specific: list the exact commands here)*.
+2. Self-review against the top-notch bar (no duplication across flows,
+   explicit params, structured returns, no god/leaky services; ponytail
+   ladder — nothing unneeded, reuse/stdlib-native first, shortest
+   root-cause diff), then run the repo's checks
+   *(repo-specific: list the exact commands here)*.
 3. Assemble the evidence captured along the way into before/after pairs.
 4. Commit with a clear message, rebase onto the latest `origin/main`, and
    rerun the checks.
@@ -105,3 +120,4 @@ infrastructure (stubs, fixtures), and anything that can't be tested locally.
 | `before-and-after` | this repo, vendored from [vercel-labs/before-and-after](https://github.com/vercel-labs/before-and-after) (or `npx skills add vercel-labs/before-and-after`) |
 | `greploop` | this repo, vendored from [greptileai/skills](https://github.com/greptileai/skills) |
 | `greploop-apps` | this repo (local variant of greploop for huge PRs; no separate upstream) |
+| `ponytail` | this repo, vendored from [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) (MIT — license included in the folder) |
